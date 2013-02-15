@@ -64,7 +64,7 @@ module Gmaps4rails
       Gmaps4rails.geocode(object.send(address), language, false, protocol)
     rescue GeocodeStatus, GeocodeInvalidQuery => e  #address was invalid, add error to address.
       Rails.logger.warn(e)
-      object.errors[address] << msg if condition_eval(object, validation)
+      object.errors.add(address, msg) if condition_eval(object, validation)
       false
     rescue GeocodeNetStatus => e                    #connection error, No need to prevent save.
       Rails.logger.warn(e)
